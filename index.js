@@ -3,18 +3,18 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 
-const PORT = process.env.PORT | 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/send_email', (req, res, next) => {
+app.post('/send_email', async (req, res, next) => {
     const { emails } = req.body;
 
     let emailSent = false;
 
     if (emails && emails.length) {
-        const transpoter = nodemailer.createTransport({
+        const transpoter = await nodemailer.createTransport({
             service: 'Gmail',
             auth: {
                 user: 'idfastrent@gmail.com',
@@ -22,26 +22,27 @@ app.post('/send_email', (req, res, next) => {
             }
         });
 
-        let mailOptions;
-        emails.forEach(email => {
-            const { recipent, subject, message } = email;
+        for (const email of emails) {
+            try {
 
-            mailOptions = {
-                from: 'idfastrent@gmail.com',
-                to: recipent,
-                subject: subject,
-                text: message
-            };
+                const { recipent, subject, message } = email;
+
+                const mailOptions = {
+                    from: 'idfastrent@gmail.com',
+                    to: recipent,
+                    subject: subject,
+                    text: message
+                };
+
+                await transpoter.sendMail(mailOptions);
+                console.log(`Succesfully Sending Email to ${recipent}`);
+                emailSent = true;
+            } catch (error) {
+                console.error(`Error sending email to ${recipient}:`, error);
+                emailSent = false;
+            }
             
-            transpoter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log('Error Sending Email');
-                } else {
-                    console.log(`Succesfully Sending Email to ${recipent}`);
-                    emailSent = true;
-                }
-            });
-        });
+        }
     }
 
     if (emailSent) {
