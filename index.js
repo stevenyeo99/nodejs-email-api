@@ -38,11 +38,10 @@ app.post('/send_email', (req, res, next) => {
                     console.log('Error Sending Email');
                 } else {
                     console.log(`Succesfully Sending Email to ${recipent}`);
+                    emailSent = true;
                 }
             });
         });
-
-        emailSent = true;
     }
 
     if (emailSent) {
