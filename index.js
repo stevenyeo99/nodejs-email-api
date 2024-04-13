@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const PORT = process.env.PORT | 5000;
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/send_email', (req, res, next) => {
     const { emails } = req.body;
