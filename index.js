@@ -57,3 +57,5 @@ app.post('/send_email', (req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Node Mailer Service is running on Port: ${PORT}`);
 });
+
+module.exports = app;
