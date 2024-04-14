@@ -17,18 +17,16 @@ app.post('/send_email', async (req, res, next) => {
         const transpoter = await nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'idfastrent@gmail.com',
-                pass: 'pqfs bwlt suhr smzr'
+                user: 'ifastrent@gmail.com',
+                pass: 'vvro ufnw wgvy wyzm'
             }
         });
 
         for (const email of emails) {
+            const { recipent, subject, message } = email;
             try {
-
-                const { recipent, subject, message } = email;
-
                 const mailOptions = {
-                    from: 'idfastrent@gmail.com',
+                    from: 'ifastrent@gmail.com',
                     to: recipent,
                     subject: subject,
                     text: message
@@ -38,7 +36,7 @@ app.post('/send_email', async (req, res, next) => {
                 console.log(`Succesfully Sending Email to ${recipent}`);
                 emailSent = true;
             } catch (error) {
-                console.error(`Error sending email to ${recipient}:`, error);
+                console.error(`Error sending email to ${recipent}:`, error);
                 emailSent = false;
             }
             
