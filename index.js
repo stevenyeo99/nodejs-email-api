@@ -17,8 +17,8 @@ app.post('/send_email', async (req, res, next) => {
         const transpoter = await nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'ifastrent@gmail.com',
-                pass: 'vvro ufnw wgvy wyzm'
+                user: 'fastrental41@gmail.com',
+                pass: 'szaq buyz gfkw ozat'
             }
         });
 
@@ -26,7 +26,7 @@ app.post('/send_email', async (req, res, next) => {
             const { recipent, subject, message } = email;
             try {
                 const mailOptions = {
-                    from: 'ifastrent@gmail.com',
+                    from: 'fastrental41@gmail.com',
                     to: recipent,
                     subject: subject,
                     text: message
